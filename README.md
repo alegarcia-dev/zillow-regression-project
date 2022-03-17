@@ -37,15 +37,31 @@ final results, and a recommendations.
 
 ## Project Goals
 
-
+Identify attributes that can be used to predict property tax assessed values, build a prediction model that is an improvement upon the existing model, 
+and offer recommendations on what works or doesn't work.
 
 ## Project Description
 
-
+The Zillow data science team would like to predict property tax assessed values for single family properties that had a transaction in 2017. A model 
+already exists, but the Zillow data science team is hoping an outside perspective can lead to an improved model. We will analyze the data available 
+and produce an improved prediction model. We will compare the new model to the existing one and offer recommendations on what works or doesn't work 
+for acquiring the most accurate predictions.
 
 ## Initial Questions
 
+We know that bedroom count, bathroom count, and square footage all have an influence on a property's value. However, we can ask additional questions 
+about the data to determine if other attributes may have an impact. Initial analysis of the data was conducted by answering these questions:
 
+- What influence do bedroom count, bathroom count, and square footage have on property value?
+- Is there a relationship between the age of a property and its value?
+- Is there a relationship between the number of stories a property has and its value?
+- Is there a relationship between the construction type of a property and its value?
+- Does a basement increase a property's value?
+- Is there a relationship between the a building's class and its value?
+- Is there a relationship between heating or system type of a property and its value?
+- Is there a relationship between the age of a property and its value?
+- Does location relate to a property's value?
+- Is there a relationship between the architectural style of a property and its value?
 
 ## Data Dictionary
 
@@ -80,4 +96,4 @@ final results, and a recommendations.
 
 
 
-[Back to top](#an-improved-model-for-predicting-property-tax-assessed-values)
+[Back to top](#an-improved-model-for-predicting-property-tax-assessed-values )

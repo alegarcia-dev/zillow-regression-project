@@ -57,9 +57,8 @@ about the data to determine if other attributes may have an impact. Initial anal
 - Is there a relationship between the number of stories a property has and its value?
 - Is there a relationship between the construction type of a property and its value?
 - Does a basement increase a property's value?
-- Is there a relationship between the a building's class and its value?
+- Does a fireplace increase a property's value?
 - Is there a relationship between heating or system type of a property and its value?
-- Is there a relationship between the age of a property and its value?
 - Does location relate to a property's value?
 - Is there a relationship between the architectural style of a property and its value?
 
@@ -77,7 +76,20 @@ about the data to determine if other attributes may have an impact. Initial anal
 ---
 ### Data Acquisition
 
+In this phase the zillow property data is acquired from the MySQL database. The dataset is quite large so it would be inefficient to pull 
+the full dataset from the database. With that in mind we have to look at our initial questions to determine which columns we should select 
+and only pull those columns for the database. Additionally we must look at our requirements and ensure that our acquired data adheres to 
+our requirements.
 
+- The acquire.ipynb notebook in the notebooks directory contains a reproducible step by step process for acquiring the data with details 
+and explanations.
+
+- The acquire.py file in the util directory contains all the data acquisition functions used in the final report notebook.
+
+**Steps Taken:**
+1. Create an SQL query that will select only the data that is needed.
+2. Create and test function to acquire our data from either the database or .csv file if it exists.
+3. Create a wrangle function that will acquire, prepare, and split our data in a single step.
 
 ### Data Preparation
 

@@ -34,7 +34,11 @@ _zillow_db = 'zillow'
 
 ################################################################################
 
-def wrangle_zillow() -> pd.core.frame.DataFrame:
+def wrangle_zillow() -> tuple[
+    pd.core.frame.DataFrame,
+    pd.core.frame.DataFrame,
+    pd.core.frame.DataFrame
+]:
     '''
         Returns the acquired, prepared, and split zillow dataset.
         

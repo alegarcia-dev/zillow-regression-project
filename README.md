@@ -66,6 +66,19 @@ about the data to determine if other attributes may have an impact. Initial anal
 
 | Variable              | Meaning      |
 | --------------------- | ------------ |
+| bedroomcnt            | Number of bedrooms in home |
+| bathroomcnt           | Number of bathrooms in home including fractional bathrooms |
+| calculatedfinishedsquarefeet | Calculated total finished living area of the home |
+| taxvaluedollarcnt     | The total tax assessed value of the parcel |
+| yearbuilt             | The Year the principal residence was built |
+| fips                  | Federal Information Processing Standard code |
+| numberofstories       | Number of stories or levels the home has |
+| basementsqft          | Finished living area below or partially below ground level |
+| fireplacecnt          | Number of fireplaces in a home (if any) |
+| typeconstructiondesc  | What type of construction material was used to construct the home |
+| heatingorsystemdesc   | Type of home heating system |
+| architecturalstyledesc | Architectural style of the home (i.e. ranch, colonial, split-level, etc…) |
+| propertylandusedesc   | Type of land use the property is zoned for |
 
 
 ## Instructions for Reproducing the Results

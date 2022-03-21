@@ -55,12 +55,14 @@ about the data to determine if other attributes may have an impact. Initial anal
 - What influence do bedroom count, bathroom count, and square footage have on property value?
 - Is there a relationship between the age of a property and its value?
 - Is there a relationship between the number of stories a property has and its value?
-- Is there a relationship between the construction type of a property and its value?
 - Does a basement increase a property's value?
 - Does a fireplace increase a property's value?
 - Is there a relationship between heating or system type of a property and its value?
 - Does location relate to a property's value?
-- Is there a relationship between the architectural style of a property and its value?
+- Does the total room count affect the value of a property?
+- Is there a relationship between garage size and property value?
+- Does a hot tub or pool increase a property's value?
+- Is there a relationship between the size of a property's patio and its value?
 
 ## Data Dictionary
 
@@ -75,10 +77,13 @@ about the data to determine if other attributes may have an impact. Initial anal
 | numberofstories       | Number of stories or levels the home has |
 | basementsqft          | Finished living area below or partially below ground level |
 | fireplacecnt          | Number of fireplaces in a home (if any) |
-| typeconstructiondesc  | What type of construction material was used to construct the home |
 | heatingorsystemdesc   | Type of home heating system |
-| architecturalstyledesc | Architectural style of the home (i.e. ranch, colonial, split-level, etc…) |
 | propertylandusedesc   | Type of land use the property is zoned for |
+| roomcnt               | Total number of rooms in the principal residence |
+| garagetotalsqft       | Total number of square feet of all garages on lot including an attached garage |
+| hashottuborspa        | Does the home have a hot tub or spa |
+| poolsizesum           | Total square footage of all pools on property |
+| yardbuildingsqft17    | Patio in yard |
 
 
 ## Instructions for Reproducing the Results

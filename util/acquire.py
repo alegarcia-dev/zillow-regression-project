@@ -99,18 +99,17 @@ def _get_zillow_sql():
             numberofstories,
             basementsqft,
             fireplacecnt,
-            typeconstructiondesc,
             heatingorsystemdesc,
-            architecturalstyledesc,
+            roomcnt,
+            garagetotalsqft,
+            hashottuborspa,
+            poolcnt,
+            poolsizesum,
+            yardbuildingsqft17,
             propertylandusedesc
         FROM properties_2017
-        LEFT JOIN propertylandusetype
+        JOIN propertylandusetype
             ON propertylandusetype.propertylandusetypeid = properties_2017.propertylandusetypeid
             AND (propertylandusetype.propertylandusedesc IN ('Single Family Residential', 'Inferred Single Family Residential'))
-        LEFT JOIN typeconstructiontype USING (typeconstructiontypeid)
-        LEFT JOIN heatingorsystemtype USING (heatingorsystemtypeid)
-        LEFT JOIN architecturalstyletype USING (architecturalstyletypeid)
-        LEFT JOIN predictions_2017 
-            ON properties_2017.parcelid = predictions_2017.parcelid
-            AND predictions_2017.transactiondate LIKE '2017%%';
+        LEFT JOIN heatingorsystemtype USING (heatingorsystemtypeid);
         """

@@ -105,8 +105,7 @@ def _get_zillow_sql():
             hashottuborspa,
             poolcnt,
             poolsizesum,
-            yardbuildingsqft17,
-            propertylandusedesc
+            yardbuildingsqft17
         FROM properties_2017
         JOIN propertylandusetype
             ON propertylandusetype.propertylandusetypeid = properties_2017.propertylandusetypeid

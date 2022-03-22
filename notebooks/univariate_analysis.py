@@ -80,8 +80,6 @@ def get_box(df: pd.core.frame.DataFrame, columns: list[str]) -> None:
     columns: list[str]
         A list of the columns we would like to visualize.
     '''
-    
-    # Only numeric columns for boxplot 
 
     fig, ax = _create_sub_plots(len(columns))
     num_columns = 3

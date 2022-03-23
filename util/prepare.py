@@ -16,6 +16,9 @@
 #           split_data(df, stratify, random_seed = 24)
 #           remove_outliers(df, k, col_list)
 #           scale_data(train, validate, test)
+#           _fill_missing_values(df)
+#           _drop_columns(df)
+#           _cast_columns(df)
 #
 #
 ################################################################################
@@ -52,24 +55,9 @@ def prepare_zillow_data(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
     missing_target = df.taxvaluedollarcnt.isnull()
     df = df[~missing_target]
     
-    df.yearbuilt.fillna(df.yearbuilt.mode()[0], inplace = True)
-    df.basementsqft.fillna(0, inplace = True)
-    df.fireplacecnt.fillna(0, inplace = True)
-    df.hashottuborspa.fillna(0, inplace = True)
-    df.poolcnt.fillna(0, inplace = True)
-    
-    df = df.drop(columns = 'numberofstories')
-    df = df.drop(columns = 'heatingorsystemdesc')
-    df = df.drop(columns = 'poolsizesum')
-    df = df.drop(columns = 'yardbuildingsqft17')
-    df = df.drop(columns = 'roomcnt')
-    
-    df.yearbuilt = df.yearbuilt.astype('int')
-    df.bedroomcnt = df.bedroomcnt.astype('int')
-    df.fips = df.fips.astype('int')
-    df.fireplacecnt = df.fireplacecnt.astype('int')
-    df.hashottuborspa = df.hashottuborspa.astype('int')
-    df.poolcnt = df.poolcnt.astype('int')
+    df = _fill_missing_values(df)
+    df = _drop_columns(df)
+    df = _cast_columns(df)
 
     # Rename the columns for readability
     df = df.rename(columns = {
@@ -186,7 +174,31 @@ def remove_outliers(df: pd.core.frame.DataFrame, k: float, col_list: list[str]) 
 
 ################################################################################
 
-def scale_data(train, validate, test):
+def scale_data(train: pd.core.frame.DataFrame, validate: pd.core.frame.DataFrame, test: pd.core.frame.DataFrame) -> tuple (
+    pd.core.frame.DataFrame,
+    pd.core.frame.DataFrame,
+    pd.core.frame.DataFrame
+):
+    '''
+        Scale all numeric columns using a MinMaxScaler.
+    
+        Parameters
+        ----------
+        train: DataFrame
+            The training dataset for a machine learning problem.
+
+        validate: DataFrame
+            The out of sample validate dataset for a machine learning problem.
+
+        test: DataFrame
+            The out of sample test dataset for a machine leraning problem.
+    
+        Returns
+        -------
+        tuple(DataFrame): A tuple of three dataframes with all the numeric 
+            columns scaled.
+    '''
+
     scaler = MinMaxScaler()
     numeric_columns = train.select_dtypes('number').columns
     
@@ -195,3 +207,79 @@ def scale_data(train, validate, test):
     test[numeric_columns] = scaler.transform(test[numeric_columns])
     
     return train, validate, test
+
+################################################################################
+
+def _fill_missing_values(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
+    '''
+        Fill in all missing values with 0 and return the dataframe.
+    
+        Parameters
+        ----------
+        df: DataFrame
+            A pandas dataframe containing the zillow dataset.
+    
+        Returns
+        -------
+        DataFrame: A pandas dataframe containing the zillow dataset with all 
+            missing values filled with 0.
+    '''
+
+    df.yearbuilt.fillna(df.yearbuilt.mode()[0], inplace = True)
+    df.basementsqft.fillna(0, inplace = True)
+    df.fireplacecnt.fillna(0, inplace = True)
+    df.hashottuborspa.fillna(0, inplace = True)
+    df.poolcnt.fillna(0, inplace = True)
+
+    return df
+
+################################################################################
+
+def _drop_columns(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
+    '''
+        Drop all columns provided from the dataframe.
+    
+        Parameters
+        ----------
+        df: DataFrame
+            A pandas dataframe containing the zillow dataset.
+    
+        Returns
+        -------
+        DataFrame: A pandas dataframe containing the zillow dataset with the 
+            provided columns dropped.
+    '''
+
+    df = df.drop(columns = 'numberofstories')
+    df = df.drop(columns = 'heatingorsystemdesc')
+    df = df.drop(columns = 'poolsizesum')
+    df = df.drop(columns = 'yardbuildingsqft17')
+    df = df.drop(columns = 'roomcnt')
+
+    return df
+
+################################################################################
+
+def _cast_columns(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
+    '''
+        Cast all provided columns to the int type.
+    
+        Parameters
+        ----------
+        df: DataFrame
+            A pandas dataframe containing the zillow dataset.
+    
+        Returns
+        -------
+        DataFrame: A pandas dataframe containing the zillow dataset with the 
+            provided columns cast to the int type.
+    ''' 
+
+    df.yearbuilt = df.yearbuilt.astype('int')
+    df.bedroomcnt = df.bedroomcnt.astype('int')
+    df.fips = df.fips.astype('int')
+    df.fireplacecnt = df.fireplacecnt.astype('int')
+    df.hashottuborspa = df.hashottuborspa.astype('int')
+    df.poolcnt = df.poolcnt.astype('int')
+
+    return df

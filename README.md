@@ -68,22 +68,22 @@ about the data to determine if other attributes may have an impact. Initial anal
 
 | Variable              | Meaning      |
 | --------------------- | ------------ |
-| bedroomcnt            | Number of bedrooms in home |
-| bathroomcnt           | Number of bathrooms in home including fractional bathrooms |
-| calculatedfinishedsquarefeet | Calculated total finished living area of the home |
-| taxvaluedollarcnt     | The total tax assessed value of the parcel |
-| yearbuilt             | The Year the principal residence was built |
-| fips                  | Federal Information Processing Standard code |
+| bedroom_count         | Number of bedrooms in home |
+| bathroom_count        | Number of bathrooms in home including fractional bathrooms |
+| square_feet           | Calculated total finished living area of the home |
+| property_tax_assessed_values | The total tax assessed value of the parcel |
+| year_built            | The Year the principal residence was built |
+| fed_code              | Federal Information Processing Standard code |
+| basement_square_feet  | Finished living area below or partially below ground level |
+| fireplace_count       | Number of fireplaces in a home (if any) |
+| garage_square_feet    | Total number of square feet of all garages on lot including an attached garage |
+| has_hot_tub           | Does the home have a hot tub or spa |
+| has_pool              | Total square footage of all pools on property |
+| yardbuildingsqft17    | Patio in yard |
 | numberofstories       | Number of stories or levels the home has |
-| basementsqft          | Finished living area below or partially below ground level |
-| fireplacecnt          | Number of fireplaces in a home (if any) |
 | heatingorsystemdesc   | Type of home heating system |
 | propertylandusedesc   | Type of land use the property is zoned for |
 | roomcnt               | Total number of rooms in the principal residence |
-| garagetotalsqft       | Total number of square feet of all garages on lot including an attached garage |
-| hashottuborspa        | Does the home have a hot tub or spa |
-| poolsizesum           | Total square footage of all pools on property |
-| yardbuildingsqft17    | Patio in yard |
 
 
 ## Instructions for Reproducing the Results
@@ -111,7 +111,22 @@ and explanations.
 
 ### Data Preparation
 
+In this phase the zillow property data is prepared so that it will be ready for exploration and modeling. The dataset initially contains a large number of missing values and outliers. In the first pass outliers are removed (in a second iteration they can be left in to see how this affects the results). Missing values are handled in various ways depending on the context. Additionally, any columns that are not removed are renamed for readability.
 
+Preparing the data allows us to see through the noise and focus on the data that is useful to the problem at hand.
+
+- The prepare.ipynb notebook in the notebooks directory contains a reproducible step by step process for preparing the data with details and explanations.
+
+- The univariate_analysis.py file in the notebooks directory contains some utility functions used in the the prepare notebook.
+
+- The prepare.py file in the util directory contains all the data preparation functions used in the final report notebook.
+
+**Steps Taken:**
+1. Analyze data to determine if there are unusual values or outliers that should be removed.
+2. Analyze any columns with missing values and determine the best course of action for handling the missing values.
+3. For any columns that are a type that doesn't make sense for the data within cast the column to a more reasonable type.
+4. Rename columns for readability.
+5. Wrap all steps in a single function and test it to ensure that it works.
 
 ### Exploratory Analysis
 

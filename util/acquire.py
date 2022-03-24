@@ -110,5 +110,7 @@ def _get_zillow_sql():
         JOIN propertylandusetype
             ON propertylandusetype.propertylandusetypeid = properties_2017.propertylandusetypeid
             AND (propertylandusetype.propertylandusedesc IN ('Single Family Residential', 'Inferred Single Family Residential'))
-        LEFT JOIN heatingorsystemtype USING (heatingorsystemtypeid);
+        LEFT JOIN heatingorsystemtype USING (heatingorsystemtypeid)
+        JOIN predictions_2017 ON properties_2017.parcelid = predictions_2017.parcelid
+        AND predictions_2017.transactiondate LIKE '2017%%';
         """

@@ -44,16 +44,16 @@ def prepare_zillow_data(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
     '''
 
     columns = [
-        'calculatedfinishedsquarefeet',
-        'bedroomcnt',
-        'bathroomcnt',
-        'garagetotalsqft'
+        'calculatedfinishedsquarefeet'
     ]
 
     df = remove_outliers(df, 1.5, columns)
     
     missing_target = df.taxvaluedollarcnt.isnull()
     df = df[~missing_target]
+
+    missing_yearbuilt = df.yearbuilt.isnull()
+    df = df[~missing_yearbuilt]
     
     df = _fill_missing_values(df)
     df = _drop_columns(df)
@@ -69,7 +69,6 @@ def prepare_zillow_data(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
         'fips' : 'fed_code',
         'basementsqft' : 'basement_square_feet',
         'fireplacecnt' : 'fireplace_count',
-        'garagetotalsqft' : 'garage_square_feet',
         'hashottuborspa' : 'has_hot_tub',
         'poolcnt' : 'has_pool'
     })
@@ -252,6 +251,7 @@ def _drop_columns(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
 
     df = df.drop(columns = 'numberofstories')
     df = df.drop(columns = 'heatingorsystemdesc')
+    df = df.drop(columns = 'garagetotalsqft')
     df = df.drop(columns = 'poolsizesum')
     df = df.drop(columns = 'yardbuildingsqft17')
     df = df.drop(columns = 'roomcnt')

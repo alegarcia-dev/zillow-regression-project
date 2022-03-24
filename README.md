@@ -76,7 +76,6 @@ about the data to determine if other attributes may have an impact. Initial anal
 | fed_code              | Federal Information Processing Standard code |
 | basement_square_feet  | Finished living area below or partially below ground level |
 | fireplace_count       | Number of fireplaces in a home (if any) |
-| garage_square_feet    | Total number of square feet of all garages on lot including an attached garage |
 | has_hot_tub           | Does the home have a hot tub or spa |
 | has_pool              | Total square footage of all pools on property |
 | yardbuildingsqft17    | Patio in yard |
@@ -84,6 +83,7 @@ about the data to determine if other attributes may have an impact. Initial anal
 | heatingorsystemdesc   | Type of home heating system |
 | propertylandusedesc   | Type of land use the property is zoned for |
 | roomcnt               | Total number of rooms in the principal residence |
+| garagetotalsqft       | Total number of square feet of all garages on lot including an attached garage |
 
 
 ## Instructions for Reproducing the Results

@@ -26,6 +26,7 @@
 import pandas as pd
 
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
 
 ################################################################################
 
@@ -77,7 +78,7 @@ def prepare_zillow_data(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
 
 ################################################################################
 
-def split_data(df: pd.core.frame.DataFrame, stratify: str, random_seed: int = 24) -> tuple[
+def split_data(df: pd.core.frame.DataFrame, random_seed: int = 24, stratify: str = None) -> tuple[
     pd.core.frame.DataFrame,
     pd.core.frame.DataFrame,
     pd.core.frame.DataFrame
@@ -121,13 +122,13 @@ def split_data(df: pd.core.frame.DataFrame, stratify: str, random_seed: int = 24
         df,
         test_size = test_split,
         random_state = random_seed,
-        stratify = df[stratify]
+        stratify = stratify if not stratify else df[stratify]
     )
     train, validate = train_test_split(
         train_validate,
         test_size = train_validate_split,
         random_state = random_seed,
-        stratify = train_validate[stratify]
+        stratify = stratify if not stratify else train_validate[stratify]
     )
     return train, validate, test
 

@@ -63,6 +63,9 @@ about the data to determine if other attributes may have an impact. Initial anal
 - Is there a relationship between garage size and property value?
 - Does a hot tub or pool increase a property's value?
 - Is there a relationship between the size of a property's patio and its value?
+- Does the type of air conditioning unit affect the value of a property?
+- Is there a relationship between a building's quality and its value?
+- Does a specific measurement of square footage (i.e. first floor square footage, lot size) provide a better insight into a property's value?
 
 ## Data Dictionary
 
@@ -84,6 +87,11 @@ about the data to determine if other attributes may have an impact. Initial anal
 | propertylandusedesc   | Type of land use the property is zoned for |
 | roomcnt               | Total number of rooms in the principal residence |
 | garagetotalsqft       | Total number of square feet of all garages on lot including an attached garage |
+| airconditiondesc      | Type of cooling system present in the home (if any) |
+| buildingqualitytypeid | Overall assessment of condition of the building from best (lowest) to worst (highest) |
+| finishedfloor1squarefeet | Size of the finished living area on the first (entry) floor of the home |
+| finishedsquarefeet15  | Total area |
+| lotsizesquarefeet     | Area of the lot in square feet |
 
 
 ## Instructions for Reproducing the Results

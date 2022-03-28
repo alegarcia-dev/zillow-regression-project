@@ -90,6 +90,7 @@ def get_zillow_data(use_cache: bool = True) -> pd.core.frame.DataFrame:
 def _get_zillow_sql():
     return """
         SELECT
+            properties_2017.parcelid,
             bedroomcnt,
             bathroomcnt,
             calculatedfinishedsquarefeet,
@@ -100,17 +101,23 @@ def _get_zillow_sql():
             basementsqft,
             fireplacecnt,
             heatingorsystemdesc,
+            airconditioningdesc,
             roomcnt,
             garagetotalsqft,
             hashottuborspa,
             poolcnt,
             poolsizesum,
-            yardbuildingsqft17
+            yardbuildingsqft17,
+            buildingqualitytypeid,
+            finishedfloor1squarefeet,
+            finishedsquarefeet15,
+            lotsizesquarefeet 
         FROM properties_2017
         JOIN propertylandusetype
             ON propertylandusetype.propertylandusetypeid = properties_2017.propertylandusetypeid
             AND (propertylandusetype.propertylandusedesc IN ('Single Family Residential', 'Inferred Single Family Residential'))
         LEFT JOIN heatingorsystemtype USING (heatingorsystemtypeid)
+        LEFT JOIN airconditioningtype USING (airconditioningtypeid)
         JOIN predictions_2017 ON properties_2017.parcelid = predictions_2017.parcelid
         AND predictions_2017.transactiondate LIKE '2017%%';
         """

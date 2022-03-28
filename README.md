@@ -138,7 +138,22 @@ Preparing the data allows us to see through the noise and focus on the data that
 
 ### Exploratory Analysis
 
+In this phase the zillow property data is analyzed in order to determine which features are most relevant for predicting property value. Prior to beginning this phase the dataset is split into a train set, validate set, and a test set to maintain the integrity of our process by keeping some data as unseen.
 
+We start by analyzing the distributions of values for each feature. Then we analyze the relation between each feature and the target variable. Finally, we look at how various features interact with each other to determine if any new features can engineered from existing ones to provide better insights.
+
+- The explore.ipynb notebook in the notebooks directory contains a reproducible step by step process for exploring the data with details and explanations.
+
+- The explore.py file in the util directory contains all the data exploration functions used in the final report notebook.
+
+**Steps Taken:**
+1. Split the data into train, validate, and test.
+2. Perform univariate analysis on the train set.
+3. Perform bivariate analysis on the train set.
+4. Identify additional questions to answer and perform multivariate analysis to answer those questions.
+5. Identify any possible features that can be engineered from existing ones.
+6. Update preparation code with any engineered features.
+7. Abstract all key takeaways into explore.py.
 
 ### Modeling
 

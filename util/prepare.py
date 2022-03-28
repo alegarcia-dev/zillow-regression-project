@@ -48,7 +48,6 @@ def prepare_zillow_data(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
     df = df[~missing_target]
     
     df = _fill_missing_values(df)
-    df = _drop_columns(df)
     df = _cast_columns(df)
 
     df.fips = df.fips.astype('int')
@@ -58,20 +57,19 @@ def prepare_zillow_data(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
     df['property_age'] = 2017 - df.yearbuilt
     df = df.drop(columns = 'yearbuilt')
 
+    df['amenities'] = df.has_hot_tub + df.has_pool + (df.fireplace_count > 0)
+
+    df = _drop_columns(df)
+
     # Rename the columns for readability
     df = df.rename(columns = {
         'bedroomcnt' : 'bedroom_count',
         'bathroomcnt' : 'bathroom_count',
         'calculatedfinishedsquarefeet' : 'square_feet',
-        'taxvaluedollarcnt' : 'property_tax_assessed_values',
-        'fireplacecnt' : 'fireplace_count',
-        'hashottuborspa' : 'has_hot_tub',
-        'poolcnt' : 'has_pool',
+        'taxvaluedollarcnt' : 'property_tax_assessed_values'
         'buildingqualitytypeid' : 'building_quality',
         'lotsizesquarefeet' : 'lot_size',
-        'fips_6037' : 'fed_code_6037',
-        'fips_6059' : 'fed_code_6059',
-        'fips_6111' : 'fed_code_6111'
+        'fips_6037' : 'fed_code_6037'
     })
     
     return df
@@ -269,6 +267,11 @@ def _drop_columns(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
     df = df.drop(columns = 'roomcnt')
     df = df.drop(columns = 'finishedfloor1squarefeet')
     df = df.drop(columns = 'finishedsquarefeet15')
+    df = df.drop(columns = 'fips_6059')
+    df = df.drop(columns = 'fips_6111')
+    df = df.drop(columns = 'fireplacecnt')
+    df = df.drop(columns = 'hashottuborspa')
+    df = df.drop(columns = 'poolcnt')
 
     return df
 

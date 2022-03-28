@@ -81,6 +81,8 @@ about the data to determine if other attributes may have an impact. Initial anal
 | fireplace_count       | Number of fireplaces in a home (if any) |
 | has_hot_tub           | Does the home have a hot tub or spa |
 | has_pool              | Total square footage of all pools on property |
+| building_quality      | Overall assessment of condition of the building from best (lowest) to worst (highest) |
+| lot_size              | Area of the lot in square feet |
 | yardbuildingsqft17    | Patio in yard |
 | numberofstories       | Number of stories or levels the home has |
 | heatingorsystemdesc   | Type of home heating system |
@@ -88,10 +90,8 @@ about the data to determine if other attributes may have an impact. Initial anal
 | roomcnt               | Total number of rooms in the principal residence |
 | garagetotalsqft       | Total number of square feet of all garages on lot including an attached garage |
 | airconditiondesc      | Type of cooling system present in the home (if any) |
-| buildingqualitytypeid | Overall assessment of condition of the building from best (lowest) to worst (highest) |
 | finishedfloor1squarefeet | Size of the finished living area on the first (entry) floor of the home |
 | finishedsquarefeet15  | Total area |
-| lotsizesquarefeet     | Area of the lot in square feet |
 
 
 ## Instructions for Reproducing the Results

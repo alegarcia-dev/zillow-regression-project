@@ -1,5 +1,5 @@
 ################################################################################
-#
+
 #
 #
 #       prepare.py
@@ -44,21 +44,19 @@ def prepare_zillow_data(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
         DataFrame: A pandas dataframe containing the prepared zillow dataset.
     '''
 
-    columns = [
-        'calculatedfinishedsquarefeet'
-    ]
-
-    df = remove_outliers(df, 1.5, columns)
-    
     missing_target = df.taxvaluedollarcnt.isnull()
     df = df[~missing_target]
-
-    missing_yearbuilt = df.yearbuilt.isnull()
-    df = df[~missing_yearbuilt]
     
     df = _fill_missing_values(df)
     df = _drop_columns(df)
     df = _cast_columns(df)
+
+    df.fips = df.fips.astype('int')
+    df.fips = df.fips.astype('object')
+    df = pd.get_dummies(df, columns = ['fips'])
+
+    df['property_age'] = 2017 - df.yearbuilt
+    df = df.drop(columns = 'yearbuilt')
 
     # Rename the columns for readability
     df = df.rename(columns = {
@@ -66,12 +64,14 @@ def prepare_zillow_data(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
         'bathroomcnt' : 'bathroom_count',
         'calculatedfinishedsquarefeet' : 'square_feet',
         'taxvaluedollarcnt' : 'property_tax_assessed_values',
-        'yearbuilt' : 'year_built',
-        'fips' : 'fed_code',
-        'basementsqft' : 'basement_square_feet',
         'fireplacecnt' : 'fireplace_count',
         'hashottuborspa' : 'has_hot_tub',
-        'poolcnt' : 'has_pool'
+        'poolcnt' : 'has_pool',
+        'buildingqualitytypeid' : 'building_quality',
+        'lotsizesquarefeet' : 'lot_size',
+        'fips_6037' : 'fed_code_6037',
+        'fips_6059' : 'fed_code_6059',
+        'fips_6111' : 'fed_code_6111'
     })
     
     return df
@@ -225,11 +225,19 @@ def _fill_missing_values(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame
             missing values filled with 0.
     '''
 
+    avg_square_feet = df.calculatedfinishedsquarefeet.mean()
+    df.calculatedfinishedsquarefeet.fillna(avg_square_feet, inplace = True)
+
     df.yearbuilt.fillna(df.yearbuilt.mode()[0], inplace = True)
-    df.basementsqft.fillna(0, inplace = True)
     df.fireplacecnt.fillna(0, inplace = True)
     df.hashottuborspa.fillna(0, inplace = True)
     df.poolcnt.fillna(0, inplace = True)
+
+    median_quality = df.buildingqualitytypeid.median()
+    df.buildingqualitytypeid.fillna(median_quality, inplace = True)
+
+    median_lotsize = df.lotsizesquarefeet.median()
+    df.lotsizesquarefeet.fillna(median_lotsize, inplace = True)
 
     return df
 
@@ -250,12 +258,17 @@ def _drop_columns(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
             provided columns dropped.
     '''
 
+    df = df.drop(columns = 'parcelid')
     df = df.drop(columns = 'numberofstories')
+    df = df.drop(columns = 'basementsqft')
     df = df.drop(columns = 'heatingorsystemdesc')
+    df = df.drop(columns = 'airconditioningdesc')
     df = df.drop(columns = 'garagetotalsqft')
     df = df.drop(columns = 'poolsizesum')
     df = df.drop(columns = 'yardbuildingsqft17')
     df = df.drop(columns = 'roomcnt')
+    df = df.drop(columns = 'finishedfloor1squarefeet')
+    df = df.drop(columns = 'finishedsquarefeet15')
 
     return df
 
@@ -276,9 +289,7 @@ def _cast_columns(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
             provided columns cast to the int type.
     ''' 
 
-    df.yearbuilt = df.yearbuilt.astype('int')
     df.bedroomcnt = df.bedroomcnt.astype('int')
-    df.fips = df.fips.astype('int')
     df.fireplacecnt = df.fireplacecnt.astype('int')
     df.hashottuborspa = df.hashottuborspa.astype('int')
     df.poolcnt = df.poolcnt.astype('int')

@@ -68,8 +68,9 @@ def prepare_zillow_data(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
         'calculatedfinishedsquarefeet' : 'square_feet',
         'taxvaluedollarcnt' : 'property_tax_assessed_values',
         'buildingqualitytypeid' : 'building_quality',
-        'lotsizesquarefeet' : 'lot_size',
-        'fips_6037' : 'fed_code_6037'
+        'fips_6037' : 'fed_code_6037',
+        'fips_6059' : 'fed_code_6059',
+        'fips_6111' : 'fed_code_6111'
     })
     
     return df
@@ -132,7 +133,7 @@ def split_data(df: pd.core.frame.DataFrame, random_seed: int = 24, stratify: str
 
 ################################################################################
 
-def remove_outliers(df: pd.core.frame.DataFrame, k: float, col_list: list[str]) -> pd.core.frame.DataFrame:
+def remove_outliers(df: pd.core.frame.DataFrame, k: float, col_list: list[str]) -> pd.DataFrame:
     '''
         Remove outliers from a list of columns in a dataframe 
         and return that dataframe.
@@ -172,7 +173,7 @@ def remove_outliers(df: pd.core.frame.DataFrame, k: float, col_list: list[str]) 
 
 ################################################################################
 
-def scale_data(train: pd.core.frame.DataFrame, validate: pd.core.frame.DataFrame, test: pd.core.frame.DataFrame) -> tuple[
+def scale_data(train: pd.DataFrame, validate: pd.DataFrame, test: pd.DataFrame, columns: list[str]) -> tuple[
     pd.DataFrame
 ]:
     '''
@@ -187,7 +188,7 @@ def scale_data(train: pd.core.frame.DataFrame, validate: pd.core.frame.DataFrame
             The out of sample validate dataset for a machine learning problem.
 
         test: DataFrame
-            The out of sample test dataset for a machine leraning problem.
+            The out of sample test dataset for a machine learning problem.
     
         Returns
         -------
@@ -196,11 +197,10 @@ def scale_data(train: pd.core.frame.DataFrame, validate: pd.core.frame.DataFrame
     '''
 
     scaler = MinMaxScaler()
-    numeric_columns = train.select_dtypes('number').columns
     
-    train[numeric_columns] = scaler.fit_transform(train[numeric_columns])
-    validate[numeric_columns] = scaler.transform(validate[numeric_columns])
-    test[numeric_columns] = scaler.transform(test[numeric_columns])
+    train[columns] = scaler.fit_transform(train[columns])
+    validate[columns] = scaler.transform(validate[columns])
+    test[columns] = scaler.transform(test[columns])
     
     return train, validate, test
 
@@ -265,8 +265,6 @@ def _drop_columns(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
     df = df.drop(columns = 'roomcnt')
     df = df.drop(columns = 'finishedfloor1squarefeet')
     df = df.drop(columns = 'finishedsquarefeet15')
-    df = df.drop(columns = 'fips_6059')
-    df = df.drop(columns = 'fips_6111')
     df = df.drop(columns = 'fireplacecnt')
     df = df.drop(columns = 'hashottuborspa')
     df = df.drop(columns = 'poolcnt')

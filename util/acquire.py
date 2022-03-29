@@ -24,8 +24,8 @@
 import os
 import pandas as pd
 
-from get_db_url import get_db_url
-from prepare import prepare_zillow_data, split_data
+from util.get_db_url import get_db_url
+from util.prepare import prepare_zillow_data, split_data
 
 ################################################################################
 
@@ -81,7 +81,7 @@ def get_zillow_data(use_cache: bool = True) -> pd.core.frame.DataFrame:
     
     # Otherwise read from the mysql database
     else:
-        df = pd.read_sql(get_zillow_sql(), get_db_url(_zillow_db))
+        df = pd.read_sql(_get_zillow_sql(), get_db_url(_zillow_db))
         df.to_csv(_zillow_file, index = False)
         return df
 

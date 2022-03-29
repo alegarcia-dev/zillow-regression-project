@@ -57,7 +57,7 @@ def prepare_zillow_data(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
     df['property_age'] = 2017 - df.yearbuilt
     df = df.drop(columns = 'yearbuilt')
 
-    df['amenities'] = df.has_hot_tub + df.has_pool + (df.fireplace_count > 0)
+    df['amenities'] = df.hashottuborspa + df.poolcnt + df.fireplacecnt
 
     df = _drop_columns(df)
 
@@ -66,7 +66,7 @@ def prepare_zillow_data(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
         'bedroomcnt' : 'bedroom_count',
         'bathroomcnt' : 'bathroom_count',
         'calculatedfinishedsquarefeet' : 'square_feet',
-        'taxvaluedollarcnt' : 'property_tax_assessed_values'
+        'taxvaluedollarcnt' : 'property_tax_assessed_values',
         'buildingqualitytypeid' : 'building_quality',
         'lotsizesquarefeet' : 'lot_size',
         'fips_6037' : 'fed_code_6037'
@@ -172,11 +172,9 @@ def remove_outliers(df: pd.core.frame.DataFrame, k: float, col_list: list[str]) 
 
 ################################################################################
 
-def scale_data(train: pd.core.frame.DataFrame, validate: pd.core.frame.DataFrame, test: pd.core.frame.DataFrame) -> tuple (
-    pd.core.frame.DataFrame,
-    pd.core.frame.DataFrame,
-    pd.core.frame.DataFrame
-):
+def scale_data(train: pd.core.frame.DataFrame, validate: pd.core.frame.DataFrame, test: pd.core.frame.DataFrame) -> tuple[
+    pd.DataFrame
+]:
     '''
         Scale all numeric columns using a MinMaxScaler.
     

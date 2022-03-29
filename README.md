@@ -189,6 +189,10 @@ In this phase a regression model is produced for predicting property tax assesse
 ---
 ## Key Takeaways and Recommendations
 
+- Include total amenities and possibly property age, and building quality, in the model.
+- Building separate models for each county has the potential to provide better results.
 
+- Given time we could try to build separate models for non-outlier and outlier properties.
+- We could also try building models with different combinations of features.
 
 [Back to top](#an-improved-model-for-predicting-property-tax-assessed-values )

@@ -1,4 +1,4 @@
-# An Improved Model For Predicting Property Tax Assessed Values
+# Predicting Property Tax Assessed Values For Properties From the Zillow Dataset
 
 This repository contains all deliverables for the Zillow Regression project including additional files used 
 in the process of producing the final deliverables.
@@ -19,6 +19,8 @@ final results, and a recommendations.
     - prepare.py: Contains functions used for preparing and tidying the property data.
     - explore.py: Contains functions used for visualizing key findings.
     - model.py: Contains functions used for producing and visualizing ML model results.
+    - stats_util.py: Contains functions used for performing statistical tests.
+    - evaluate.py: Contains functions used for measure regression model performance.
 ---
 
 ## Table of Contents
@@ -37,8 +39,7 @@ final results, and a recommendations.
 
 ## Project Goals
 
-Identify attributes that can be used to predict property tax assessed values, build a prediction model that is an improvement upon the existing model, 
-and offer recommendations on what works or doesn't work.
+Identify attributes that can be used to predict property tax assessed values, build a prediction model that is an improvement upon the existing model, and offer recommendations on what works or doesn't work.
 
 ## Project Description
 
@@ -96,7 +97,19 @@ about the data to determine if other attributes may have an impact. Initial anal
 
 ## Instructions for Reproducing the Results
 
-
+1. Clone this repository into your local machine using the following command:
+```bash
+git clone git@github.com:alegarcia-dev/zillow-regression-project.git
+```
+2. You will need Pandas, Numpy, Matplotlib, Seaborn, and SKLearn installed on your machine.
+3. If you don't have login credentials for the MySQL database hosted at data.codeup.com acquire login credentials.
+4. Create a file in the main directory titled "env.py" and put your login credentials in the following format:
+```python
+username = "your_username"
+password = "your_password"
+hostname = "data.codeup.com"
+```
+5. Now you can start a Jupyter Notebook session and execute the code blocks in the Zillow_Final_Report.ipynb notebook.
 
 ## Outline of Project Plan
 ---
@@ -157,7 +170,21 @@ We start by analyzing the distributions of values for each feature. Then we anal
 
 ### Modeling
 
+In this phase a regression model is produced for predicting property tax assessed values on properties in the zillow property dataset. Several models are created and compared to determine which features and strategies provide the best model performance. The best model will be used in the final report to predict the target variable in the test dataset.
 
+- The model.ipynb notebook in the notebooks directory contains a reproducible step by step process for producing regression models with details and explanations.
+
+- The model.py file in the util directory contains all the modeling functions used in the final report notebook.
+
+**Steps Taken:**
+1. Scale all features except the target variable.
+2. Remove outliers from the train set.
+3. Establish a baseline model.
+4. Use a feature selection algorithm to identify which features are most relevant for predicting the target variable.
+5. Create 3-4 different models using only square footage, bedroom count, and bathroom count.
+6. Using the model create a few more models adding in additional features.
+7. Using the best algorithm and feature set try producing different models for each county.
+8. Analyze results and choose the best model.
 
 ---
 ## Key Takeaways and Recommendations

@@ -195,4 +195,4 @@ In this phase a regression model is produced for predicting property tax assesse
 - Given time we could try to build separate models for non-outlier and outlier properties.
 - We could also try building models with different combinations of features.
 
-[Back to top](#an-improved-model-for-predicting-property-tax-assessed-values )
+[Back to top](#predicting-property-tax-assessed-values-for-properties-from-the-zillow-dataset)

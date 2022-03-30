@@ -49,6 +49,7 @@ def plot_property_value_distribution(df: pd.DataFrame) -> None:
 
     mask = df.property_tax_assessed_values < 1_000_000
     sns.histplot(df[mask].property_tax_assessed_values, bins = 10)
+    ax[1].ticklabel_format(style = 'plain')
     ax[1].set_title('Properties with tax assessed value less than $1,000,000.')
 
     plt.show()
@@ -73,17 +74,19 @@ def plot_primary_features_vs_target(df: pd.DataFrame) -> None:
     sns.regplot(data = df[mask], x = 'bedroom_count', y = 'property_tax_assessed_values', ax = ax[0], line_kws = {'color' : 'red'})
     ax[0].axhline(mean, ls='--', color='grey')
     ax[0].ticklabel_format(style = 'plain')
-    ax[0].set_title('Property value increases as bedroom count increases.')
+    ax[0].set_title('Property value inc. as bedroom count inc.')
 
     sns.regplot(data = df[mask], x = 'bathroom_count', y = 'property_tax_assessed_values', ax = ax[1], line_kws = {'color' : 'red'})
     ax[1].axhline(mean, ls='--', color='grey')
     ax[1].ticklabel_format(style = 'plain')
-    ax[1].set_title('Property value increases as bathroom count increases.')
+    ax[1].set_title('Property value inc. as bathroom count inc.')
 
     sns.regplot(data = df[mask], x = 'square_feet', y = 'property_tax_assessed_values', ax = ax[2], line_kws = {'color' : 'red'})
     ax[2].axhline(mean, ls='--', color='grey')
     ax[2].ticklabel_format(style = 'plain')
-    ax[2].set_title('Property value increases as square footage increases.')
+    ax[2].set_title('Property value inc as square footage inc.')
+
+    plt.tight_layout()
 
     plt.show()
 
@@ -136,6 +139,7 @@ def plot_amenities_and_location(df: pd.DataFrame) -> None:
 
     sns.boxplot(data = df[mask], x = 'fed_code_6037', y = 'property_tax_assessed_values', ax = ax[1])
     ax[1].axhline(mean, ls = '--', color = 'grey')
+    ax[1].set_yticks([0, 400_000, 800_000])
     ax[1].set_title('Properties in Los Angeles County have lower value on average.')
 
     plt.show()
